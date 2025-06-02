@@ -37,7 +37,7 @@ check_date = buy_date - pd.DateOffset(months=1) + pd.offsets.MonthEnd(0)
 
 # last month before buy
 # Backtest timeframe
-risk_free_rate = 0.04
+risk_free_rate = 0.03
 
 # change the dataframes column names and datatypes
 def parse_data(df, exchange_name=""):
@@ -191,7 +191,7 @@ rcm_stocks = recommend_portfolio['ticker'].unique()
 # Calculate VNIndex gross return within validation range
 index_return = pd.DataFrame(
     index.loc[
-        (index["date"] >= check_date) & 
+        (index["date"] >= l_threshold) & 
         (index['ticker'] == "VNINDEX")
     ][["date", "close"]]
 ).assign(
