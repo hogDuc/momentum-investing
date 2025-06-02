@@ -1,0 +1,7 @@
+matplotlib
+pandas
+numpy
+os
+plotly
+scipy
+datetime

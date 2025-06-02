@@ -5,25 +5,19 @@ a. Hãy áp dụng chiến lược Động lượng với thị trường cổ p
 
 b. Đưa ra danh sách và tỷ trọng cổ phiếu khuyến nghị với ngày đầu tư là 27/05/2025.
 
-# II. Cơ sở lý thuyết
-### 1. Chiến lược đầu tư cổ phiếu Động lượng - Momentum investing
-Chiến lược đầu tư cổ phiếu Động lượng là chiến lược mua những cổ phiếu đang tăng giá và bán chúng khi giá có vẻ đạt đến đỉnh tăng.
-### 2. Chỉ số VN-Index
-$$VNIndex=\frac{\sum^n_{i=1}{P_{1i}*Q_{1i}}}{\sum^n_{i=1}{P_{0i}*Q_{0i}}}*100$$
-Với:
+# II. Hướng dẫn sử dụng
+Có 2 cách trích xuất danh mục và kiểm thử hiệu quả
+### 1. Qua dashboard Streamlit
 
-$P_{1i}$: Giá cổ phiếu i hiện tại
-
-$Q_{1i}$: Khối lượng i hiện tại
-
-$P_{0i}$: Giá cổ phiếu i thời điểm cơ sở
-
-$Q_{0i}$: Khối lượng i thời điểm cơ sở
 
 # III. Phương pháp
-### 1. Giả định
+### 1. Chiến lược đầu tư cổ phiếu Động lượng - Momentum investing
+Chiến lược đầu tư cổ phiếu Động lượng là chiến lược mua những cổ phiếu đang tăng giá và bán chúng khi giá có vẻ đạt đến đỉnh tăng. Tuy nhiên, việc xét mức độ tăng của giá cổ phiếu không nên được xét trong thời gian quá ngắn, mà cần được quan sát qua nhiều khoảng thời gian khác nhau để đảm bảo rằng các cổ phiếu tăng trưởng mạnh không phải là tức thời, tránh trường hợp "lái" trong vài phiên. Do đó các mức tăng trưởng 1 tháng, 3 tháng, 6 tháng và 12 tháng sẽ được sử dụng để đánh giá mức độ tăng giá của các cổ phiếu.
+
+### 2. Giả định
 - Nhà đầu tư có thể mua các lượng cổ phiếu bất kỳ, khớp lệnh sau khi đặt.
 - Thị trường không có phí giao dịch 
-# IV. Tài liệu tham khảo
-https://www.investopedia.com/trading/introduction-to-momentum-trading/
 
+### 3. Bước thực hiện
+Từ dữ liệu lịch sử giá các mã trên sàn chứng khoán, thực hiện tính lợi nhuận tích lũy theo các khoảng thời gian 1 tháng, 3 tháng, 6 tháng và 12 tháng. Tính điểm Động lượng - momentum score bằng cách tính trung bình lợi nhuận tích lũy các khoảng thời gian.
+Thực hiện tính lợi nhuận tích lũy tương tự với dữ liệu VNIndex để thực hiện so sánh, lọc ra các cổ phiếu có điểm Động lượng cao hơn VNIndex, tức các cổ phiếu có mức tăng trung bình cao hơn VNIndex.
