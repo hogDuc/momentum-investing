@@ -22,15 +22,20 @@ with col1:
         label="Chọn số cổ phiếu trong danh mục",
         value=5
     )
-with col2:
+    buy_date = st.date_input(
+        "Chọn ngày khuyến nghị",
+        datetime.date(2025, 1, 2),
+        max_value=datetime.datetime.today()
+    )
     backtest_date = st.date_input(
         "Chọn khoảng thời gian kiểm thử",
         (datetime.date(2025, 1, 2), datetime.date(2025, 5, 16)),
         max_value=datetime.datetime.today()
     )
+
 l_threshold = pd.to_datetime(backtest_date[0])
 u_threshold = pd.to_datetime(backtest_date[1])
-check_date = l_threshold - pd.DateOffset(months=1) + pd.offsets.MonthEnd(0)
+check_date = buy_date - pd.DateOffset(months=1) + pd.offsets.MonthEnd(0)
 
 # last month before buy
 # Backtest timeframe
@@ -138,9 +143,13 @@ else:
     vnstocks = pd.read_csv(os.path.join('data', "historical_data.csv")).assign(
         date = lambda x: pd.to_datetime(x['date'])
     )
+    vnstocks = vnstocks[vnstocks["ticker"].str.len()==3]
     return_vnstocks = pd.read_csv(os.path.join('data', "stock_returns.csv")).assign(
         date = lambda x: pd.to_datetime(x['date'])
     )
+
+vnstocks = vnstocks[vnstocks["ticker"].str.len()==3]
+return_vnstocks = return_vnstocks[return_vnstocks["ticker"].str.len()==3]
 
 # VNIndex historical data
 index = parse_data(pd.read_csv(os.path.join('data',"CafeF.INDEX.Upto28.05.2025.csv")), exchange_name= "Index")\
@@ -213,7 +222,6 @@ sharpe_df = vnstocks.loc[
     (vnstocks['ticker'].isin(rcm_stocks)) &
     (vnstocks['date'] < check_date)
 ]
-
 # Find optimal stock weights with Share ratio
 optimal_portfolio, sharpe_ratio = optimize_portfolio(df=sharpe_df, risk_free_rate=risk_free_rate)
 
@@ -248,6 +256,19 @@ fig.update_layout(
     yaxis_title='Cumulative Return',
     hovermode="x unified"
 )
+
+with col2:
+    st.markdown(f"**Danh mục khuyến nghị cho ngày {buy_date}**")
+    st.dataframe(
+        pd.DataFrame(optimal_portfolio, index=['weights']).T.reset_index().rename(
+            columns={
+                'index':"Stock",
+                "weights": "Weights"
+            }
+        ),
+        hide_index=True
+    )
+
 metric1, metric2, metric3 = st.columns(3)
 with metric1:
     st.metric("Sharpe ratio", value=round(sharpe_ratio, 2))
