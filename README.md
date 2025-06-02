@@ -10,11 +10,13 @@ Có 2 cách trích xuất danh mục và kiểm thử hiệu quả
 ### 1. Sử dụng dashboard Streamlit
 Truy cập qua url [Dashboard](https://ducngh-momentum.streamlit.app/)
 
-Hoặc chạy `streamlit run momentum.py`
+Hoặc clone [Github](https://github.com/hogDuc/momentum-investing) và chạy `streamlit run momentum.py`
 
 *Lưu ý*: Lần chạy đầu của dashboard sẽ bị chậm do cần thời gian xử lý dữ liệu lần đầu
 
 ### 2. Sử dụng notebook momentum.ipynb
+Truy cập [Github](https://github.com/hogDuc/momentum-investing) hoặc `git clone https://github.com/hogDuc/momentum-investing.git` 
+
 Truy cập notebook `momentum.ipynb` để kiểm thử và trích xuất danh mục đề xuất. Hướng dẫn chi tiết sẽ được để trong notebook.
 [Truy cập notebook tại đây](./momentum.ipynb)
 

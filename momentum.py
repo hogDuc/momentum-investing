@@ -228,6 +228,29 @@ opt_rcm_return = pd.DataFrame(
     .sum(axis=1).add(1).cumprod()\
 ).rename(columns={0:"accum_return"}).reset_index()
 
+# Calculate portfolio beta, alpha
+## Portfolio daily return
+opt_rcm_return['daily_return'] = opt_rcm_return['accum_return'].pct_change().fillna(0)
+## VNIndex daily return
+index_return['daily_return'] = index_return['accumulative_return'].pct_change().fillna(0)
+
+merged_returns = pd.merge(opt_rcm_return[['date', 'daily_return']], index_return[['date', 'daily_return']], on='date', suffixes=('_portfolio', '_index'))
+
+covariance = merged_returns['daily_return_portfolio'].cov(merged_returns['daily_return_index'])
+variance = merged_returns['daily_return_index'].var()
+
+## Portfolio beta
+beta = covariance / variance
+
+# Calculate the portfolio's annualized return
+portfolio_return = opt_rcm_return['daily_return'].mean() * 252
+
+market_return = index_return['daily_return'].mean() * 252
+expected_return = risk_free_rate + beta * (market_return - risk_free_rate)
+
+## Portfolio alpha
+alpha = portfolio_return - expected_return
+
 fig = px.line()
 fig.add_scatter(
     x=index_return['date'], 
@@ -271,9 +294,9 @@ metric1, metric2, metric3 = st.columns(3)
 with metric1:
     st.metric("Sharpe ratio", value=round(sharpe_ratio, 2))
 with metric2:
-    st.metric("Beta", value="placeholder")
+    st.metric("Beta", value=beta)
 with metric3:
-    st.metric("Alpha", value="placeholder")
+    st.metric("Alpha", value=alpha)
 
 st.plotly_chart(fig)
 
