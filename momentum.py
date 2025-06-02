@@ -294,9 +294,9 @@ metric1, metric2, metric3 = st.columns(3)
 with metric1:
     st.metric("Sharpe ratio", value=round(sharpe_ratio, 2))
 with metric2:
-    st.metric("Beta", value=beta)
+    st.metric("Beta", value=round(beta, 2))
 with metric3:
-    st.metric("Alpha", value=alpha)
+    st.metric("Alpha", value=round(alpha, 2))
 
 st.plotly_chart(fig)
 
