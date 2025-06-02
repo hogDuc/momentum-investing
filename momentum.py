@@ -12,7 +12,6 @@ st.set_page_config(
 )
 
 st.title("Momentum Investing Strategy")
-st.markdown("Description")
 
 # Input parameters
 col1, col2 = st.columns(2)
