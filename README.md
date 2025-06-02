@@ -21,6 +21,9 @@ $P_{0i}$: Giá cổ phiếu i thời điểm cơ sở
 $Q_{0i}$: Khối lượng i thời điểm cơ sở
 
 # III. Phương pháp
+### 1. Giả định
+- Nhà đầu tư có thể mua các lượng cổ phiếu bất kỳ, khớp lệnh sau khi đặt.
+- Thị trường không có phí giao dịch 
 # IV. Tài liệu tham khảo
 https://www.investopedia.com/trading/introduction-to-momentum-trading/
 

@@ -1,1 +1,4 @@
 *.zip
+
+data/stock_returns.csv
+data/historical_data.csv
